@@ -75,21 +75,20 @@ const MovieDetail = ({ route }: any): JSX.Element => {
   const removeFavorite = async (id: number): Promise<void> => {
     try {
       const initialData: string | null =
-        await AsyncStorage.getItem("@FavoriteList");
-      if (initialData) {
-        const favMovieList: Movie[] = JSON.parse(initialData).filter(
-          (movie: Movie) => movieDetail.id !== id
-        );
-        await AsyncStorage.setItem(
-          "@FavoriteList",
-          JSON.stringify(favMovieList)
-        );
-        setIsFavorite(false);
-      }
-    } catch (err) {
-      console.log(err);
+        await AsyncStorage.getItem('@FavoriteList')
+
+      let removeFavorite: Movie[] = JSON.parse(initialData || '[]')
+      removeFavorite = removeFavorite.filter((movieDetail) => movieDetail.id !== id)
+
+      await AsyncStorage.setItem(
+        '@FavoriteList',
+        JSON.stringify(removeFavorite),
+      )
+      setIsFavorite(false)
+    } catch (error) {
+      console.error(error)
     }
-  };
+  }
 
   const checkIsFavorite = async (id: number): Promise<boolean> => {
     let convertJSON: Movie[] = []

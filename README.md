@@ -3,6 +3,7 @@ Proyek cross platform yang dibuat dengan expo react native, dengan memanfaatkan 
 
 ## Anggota :
 * [RULLI DAMARA PUTRA](https://github.com/rullydamara)
+* [ROBBY IHZA MAHENDRA](https://github.com/ihzats)
 
 ## Detail Proyek
 *

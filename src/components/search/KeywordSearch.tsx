@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, TextInput, StyleSheet, Text, FlatList } from 'react-native';
 import { API_ACCESS_TOKEN } from '@env'; // Pastikan Anda telah mengonfigurasi dotenv untuk mengimpor akses token
-import MovieItem from './MovieItem'; // Sesuaikan path ini jika perlu
+import MovieItem from '../movies/MovieItem'; // Sesuaikan path ini jika perlu
 
 const API_URL = 'https://api.themoviedb.org/3/search/movie';
 

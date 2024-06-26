@@ -1,8 +1,8 @@
 // screens/Search.tsx
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import KeywordSearch from '../components/movies/KeywordSearch'
-import CategorySearch from '../components/movies/CategorySearch';
+import KeywordSearch from '../components/search/KeywordSearch'
+import CategorySearch from '../components/search/CategorySearch';
 
 const Search = (): JSX.Element => {
   const [selectedBar, setSelectedBar] = useState<string>('keyword');

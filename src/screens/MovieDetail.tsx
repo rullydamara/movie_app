@@ -2,17 +2,22 @@ import React, { useState, useEffect } from 'react'
 import { Text, View, ScrollView, ImageBackground, FlatList, StyleSheet, ActivityIndicator } from 'react-native'
 import { API_ACCESS_TOKEN } from '@env'
 import { LinearGradient } from 'expo-linear-gradient'
+import type { Movie } from '../types/app'
 import MovieItem from '../components/movies/MovieItem'
 import { format } from 'date-fns'
+import { FontAwesome } from '@expo/vector-icons'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const MovieDetail = ({ route }: any): JSX.Element => {
   const [movieDetail, setMovieDetail] = useState<any>(null)
   const [recommendations, setRecommendations] = useState<any[]>([])
   const { id } = route.params
+  const [isFavorite, setIsFavorite] = useState<boolean>(false)
 
   useEffect(() => {
     fetchMovieDetail()
     fetchRecommendations()
+    checkFavoriteStatus()
   }, [id])
 
   const fetchMovieDetail = async (): Promise<void> => {
@@ -53,6 +58,58 @@ const MovieDetail = ({ route }: any): JSX.Element => {
     }
   };
 
+  const addFavorite = async (movie: Movie): Promise<void> => {
+    try {
+      const initialData: string | null =
+        await AsyncStorage.getItem("@FavoriteList");
+      let favMovieList: Movie[] = initialData ? JSON.parse(initialData) : [];
+      favMovieList.push(movie);
+      await AsyncStorage.setItem("@FavoriteList", JSON.stringify(favMovieList));
+      console.log("Added to favorites:", movieDetail);
+      setIsFavorite(true);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const removeFavorite = async (id: number): Promise<void> => {
+    try {
+      const initialData: string | null =
+        await AsyncStorage.getItem("@FavoriteList");
+      if (initialData) {
+        const favMovieList: Movie[] = JSON.parse(initialData).filter(
+          (movie: Movie) => movieDetail.id !== id
+        );
+        await AsyncStorage.setItem(
+          "@FavoriteList",
+          JSON.stringify(favMovieList)
+        );
+        setIsFavorite(false);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const checkIsFavorite = async (id: number): Promise<boolean> => {
+    let convertJSON: Movie[] = []
+    try {
+      const initialData: string | null =
+        await AsyncStorage.getItem('@FavoriteList')
+
+      convertJSON = JSON.parse(initialData || '[]')
+    } catch (error) {
+      console.error(error)
+    }
+
+    return convertJSON.some((movieDetail) => movieDetail.id === id)
+  }
+
+  const checkFavoriteStatus = async (): Promise<void> => {
+    const favoriteStatus = await checkIsFavorite(id);
+    setIsFavorite(favoriteStatus);
+  };
+
   if (!movieDetail) {
     return (
       <View style={styles.loadingContainer}>
@@ -79,7 +136,19 @@ const MovieDetail = ({ route }: any): JSX.Element => {
             style={styles.gradient}
           >
             <Text style={styles.movieTitle}>{movieDetail.title}</Text>
-            <Text style={styles.movieRating}>⭐ {movieDetail.vote_average}</Text>
+            <View style={styles.flexrowTitle}>
+              <Text style={styles.movieRating}>⭐ {movieDetail.vote_average}</Text>
+              <FontAwesome.Button
+                name={isFavorite ? 'heart' : 'heart-o'}
+                size={24}
+                color="white"
+                iconStyle={styles.favoriteMovie}
+                backgroundColor="transparent"
+                onPress={() => {
+                  isFavorite ? removeFavorite(movieDetail.id) : addFavorite(movieDetail)
+                }}
+              />
+            </View>
           </LinearGradient>
         </ImageBackground>
         <Text style={styles.movieOverview}>{movieDetail.overview}</Text>
@@ -187,6 +256,9 @@ const styles = StyleSheet.create({
     marginRight: 12,
     marginLeft: 8,
   },
+  favoriteMovie: {
+    marginLeft: 'auto',
+  },
   flex: {
     flex: 1,
     marginHorizontal: 8,
@@ -197,6 +269,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     marginVertical: 8,
     paddingLeft: 14,
+  },
+  flexrowTitle: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 })
 

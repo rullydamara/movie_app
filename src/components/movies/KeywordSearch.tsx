@@ -88,8 +88,7 @@ const styles = StyleSheet.create({
     borderRadius:100,
   },
   row: {
-    justifyContent: 'flex-start',
-    gap: 10,
+    justifyContent: 'space-around',
     marginBottom: 18,
   },
   noResults: {

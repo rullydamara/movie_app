@@ -72,8 +72,8 @@ export default function Favorite(): JSX.Element {
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: 36,
-    paddingHorizontal: 22,
+    paddingVertical: 8,
+    paddingHorizontal: 12,
     flex: 1,
   },
   emptyFavoriteContainer: {
@@ -91,8 +91,7 @@ const styles = StyleSheet.create({
     fontWeight: '900',
   },
   row: {
-    justifyContent: 'flex-start',
-    gap: 16,
+    justifyContent: 'space-around',
     marginBottom: 18,
   },
   emptyFavorite: {

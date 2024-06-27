@@ -1,4 +1,4 @@
-# Proyek Akhir Movie APP dari Progate Mobile Developer Course (React Native)
+# Proyek Akhir Movie APP dari Progate Mobile Developer Course (React Native) Kelompok 7
 [![wakatime](https://wakatime.com/badge/user/1977f03e-b752-4295-b810-a96b45cb6e01/project/fbc7e9cd-5b1c-4749-9884-0852beaa9971.svg)](https://wakatime.com/badge/user/1977f03e-b752-4295-b810-a96b45cb6e01/project/fbc7e9cd-5b1c-4749-9884-0852beaa9971)
 
 Proyek cross platform yang dibuat dengan expo react native, dengan memanfaatkan API yang di sediakan oleh The Movie Database(TMDB).
@@ -16,6 +16,12 @@ Proyek cross platform yang dibuat dengan expo react native, dengan memanfaatkan 
     3. Fitur pencarian berdasarkan keyword judul
     4. Fitur pencarian berdasarkan kategoori genre
     5. Fitur menambahkan dan menghapus movie dari daftar favorite
+
+## Dokumentasi
+[Project Akhir Progate React Native Mobile App - Kelompok 7](https://www.youtube.com/watch?v=veb6SEcFHGI)
+
+[![Movie App Dokumentasi](https://img.youtube.com/vi/veb6SEcFHGI/0.jpg)](https://www.youtube.com/watch?v=veb6SEcFHGI)
+
 
 ## Mengunduh Repository
 
